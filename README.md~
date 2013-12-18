@@ -1,0 +1,99 @@
+Due to this project uses two main libs (see next) the whole project can be distributed taking care of respecting the below libraries license.
+ - libstreaming (https://github.com/fyhertz/libstreaming) available under two licenses, the GPL and a commercial license. If you are willing to integrate this project into a close source application, please contact me at fyhertz at gmail.com.
+	- Minor changes has been done over original libstreaming lib in order to solve some issues with Google Glass
+
+ - mp4parser (https://code.google.com/p/mp4parser/) Apache License 2.0
+
+
+It is a demo app test about using RSTP protocol to streaming content from Google Glass to Wowza streaming server.
+
+
+Needed:
+
+Glass Sneak Peek api
+android.jar api 19 (due to compatibility with libstreaming library)
+Wowza media server.
+
+
+Source
+Eclipse IDE deployment: 
+Configure GDK Sneak Peek libraries: Project properties -> Android -> Select "Glass Development Kit Sneak Peek" -> Ok
+Configure Build path in order to add android api 19 compatibility.  This is nececesary due to libstreaming library contains methods for compatibility with Android Mediacodec new api 19 version. So: Build path-> Add external jar ->  select <../adt-bundle-linux-x86_64-20130729/sdk/platforms/android-19/android.jar>
+Deploy on your Glass
+
+
+How to use
+
+You can use the voice input  to test the rstp streaming. Also launchy app can be used (In that case, please select glassstream app)
+
+1) Call Ok Glass -> mundoglass
+
+2) Tap over MUNDOglass card, you'll see a camera preview, be patient
+
+3) The rstp show is being done ( rstp announce, rstp setup and rstp record). That protocol handshake usually takes more than 3 or 4 seconds to finish after doing a  "tap" over MUNDOglass card
+
+4) Use a rstp media player client like cvlc / vlc to test your streamming
+
+   Once you got a log trace in your ide a trace like this  "H264Packetizer(25911): H264 packetizer started !" you'll be able to stream using your player
+
+4) Use a rstp media player client like cvlc / vlc to test your streamming
+
+   vlc rtsp://<your_site>:1935/live/your_sdp_file.sdp
+
+
+
+NOTES
+
+It is just a draft version that maybe is plenty of bugs, i.e.: we are having some throubles pausing/finishing the inmersion/activity because resources (preview/surface) are not being properly freed
+
+
+We use digest authentification (user/passw) username/password. You can found it harcoded into
+
+com.mundoglass.worldglass.CameraActivity.java 
+
+String user = "your_username";
+String password = "your_password";
+String url = "rtsp://your_site:1935/live/your_sdp_file.sdp";
+
+Target Streaming server is also hardcoded at the same place (see above)
+
+
+
+We are using  a Wowza streaming media server as streaming server. In order to properly configure your Wowza server do the following (you can found more info here
+Install a wowza media server
+
+First, we need to create a Wowza application that we will call live. We are actually going to install one of the sample applications presented here. To do that, start by creating a folder called "live" in your [wowza-install-dir]/applications folder:
+
+	cd /usr/local/WowzaMediaServer
+	sudo mkdir applications/live
+
+And another directory called live in your [wowza-install-dir]/conf/applications directory:
+
+	cd /usr/local/WowzaMediaServer/conf/applications
+	sudo mkdir live
+
+Then, download and copy this file in the "live" directory.
+	cd live
+	sudo wget http://www.wowza.com/downloads/tutorials/live/Application.xml
+ 
+Set a password for the RTSP server of Wowza
+
+
+The RTSP server of Wowza can be configured to require user authentication. By default, it is configured to require user authentication to publish a stream, but not to play one. The example 3 will need this login and password pair to successfully stream to Wowza. That is why you have to add one in the [install-dir]/conf/admin.password file. As you can see into our code, we use username/password as keys.
+
+You can also choose to disable user authentication to publish a stream. To do that, replace digest with none in yourlive/Application.xml in this field:
+
+<PublishMethod>digest</PublishMethod>
+
+Note: as of libstreaming 3.0, digest authentication is the only authentication scheme supported by the RTSP client.
+
+Restart your Wowza Media Server
+ 
+Based in our experience, you'll have to configure the following properties from file /usr/local/WowzaMediaServer-3.6.3/conf/live/Application.xml
+
+	AVSyncMethod to senderreport or rtptimecode to synchronize video with audio.   e.g:  <AVSyncMethod>senderreport</AVSyncMethod> or  <AVSyncMethod>rtptimecode</AVSyncMethod>
+
+	RTPTransportMode  to udp.   e.g.:  <RTPTransportMode>udp</RTPTransportMode>
+
+
+
