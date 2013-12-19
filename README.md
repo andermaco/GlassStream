@@ -1,11 +1,11 @@
+This is a fragment of a platform we are building at www.mundoglass.es. It just lets to live stream from Google Glass to Wowza streaming server.
+
 Due to this project uses two main libs (see next) the whole project can be distributed taking care of respecting the below libraries license.
  - libstreaming (https://github.com/fyhertz/libstreaming) available under two licenses, the GPL and a commercial license. If you are willing to integrate this project into a close source application, please contact me at fyhertz at gmail.com.
 	- Minor changes has been done over original libstreaming lib in order to solve some issues with Google Glass
 
  - mp4parser (https://code.google.com/p/mp4parser/) Apache License 2.0
 
-
-It is a demo app test about using RSTP protocol to streaming content from Google Glass to Wowza streaming server.
 
 
 Needed:

@@ -17,6 +17,10 @@ import android.widget.RelativeLayout;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 
+/**
+ * @author ander.martinez@mundoglass.es
+ * @see www.mundoglass.es
+ */
 public class MainActivity extends Activity {
 	
 	private final static String TAG = "MainActivity";

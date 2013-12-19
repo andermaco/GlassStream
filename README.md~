@@ -38,7 +38,7 @@ You can use the voice input  to test the rstp streaming. Also launchy app can be
 
 4) Use a rstp media player client like cvlc / vlc to test your streamming
 
-   vlc rtsp://<your_site>:1935/live/your_sdp_file.sdp
+   vlc rtsp://[your_site]:1935/live/[your_sdp_file].sdp
 
 
 
@@ -53,7 +53,7 @@ com.mundoglass.worldglass.CameraActivity.java
 
 String user = "your_username";
 String password = "your_password";
-String url = "rtsp://your_site:1935/live/your_sdp_file.sdp";
+String url = "rtsp://[your_site]:1935/live/[your_sdp_file].sdp";
 
 Target Streaming server is also hardcoded at the same place (see above)
 

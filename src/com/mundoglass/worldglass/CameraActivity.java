@@ -1,6 +1,5 @@
 package com.mundoglass.worldglass;
 
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,6 +25,10 @@ import android.widget.Toast;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 
+/**
+ * @author ander.martinez@mundoglass.es based on https://github.com/fyhertz/libstreaming
+ * @see www.mundoglass.es
+ */
 public class CameraActivity extends Activity {
 
 	public final static String TAG = "CameraActivity";
@@ -33,9 +36,9 @@ public class CameraActivity extends Activity {
 
 	private final static VideoQuality QUALITY_GLASS = new VideoQuality(352, 288, 60, 384000); //wifi
 //	private final static VideoQuality QUALITY_GLASS = new VideoQuality(352, 288, 60, 768000); //movil
-	String user = "your_user";
-	String password = "your_password";
-	String url = "rtsp://your_site:1935/live/your_sdp_file.sdp";
+	String user = "username";
+	String password = "password";
+	String url = "rtsp://opendev.mundoglass.es:1935/live/test.sdp";
 
 	
 	private VideoQuality mQuality = QUALITY_GLASS;			
@@ -136,7 +139,7 @@ public class CameraActivity extends Activity {
 
 	@Override
 	public void onStop() {
-		Log.i(TAG, "***** onStop()");		
+		Log.i(TAG, "onStop()");		
 		// Unlock screen
 		if (mWakeLock.isHeld()) mWakeLock.release();
 			// Setting recording state to disabled
